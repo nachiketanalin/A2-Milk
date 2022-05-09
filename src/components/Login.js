@@ -3,11 +3,14 @@ import '../css/login.css'
 import axios from "axios"
 
 
+// 8811881177
+// tjNzH
+
 function Login() {
 
-  const [email, setEmail] = useState("");
+  let s=0;
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-
   const login = async()=>{
     try{
         let res=await axios({
@@ -18,42 +21,35 @@ function Login() {
                "Accept": "application/json"
            }, 
            data: {
-               "phone": email,
+               "phone": phone,
                "password": password
            }
          });
         console.log(res);
         if (res.data.type === "admin"){
             console.log("admin is here !");
-            const e1=document.getElementById("phoneId");
-            const e2=document.getElementById("passId");
-            
-            e1.classList.add("invisible");
-            e2.classList.add("invisible");
+            s=1;
+            const e = document.getElementById('labelId').innerHTML = 'Correct Crendentials !';
         }
         else{
-
-            // const e1=document.getElementById("phoneId");
-            // const e2=document.getElementById("passId");
-            
-            // e1.classList.add("visible");
-            // e2.classList.add("visible");
-            // firstNameField.classList.add("invalid");
-
+            s=0;
             console.log("hacker is here !");
         }
     }
     catch(error){
-            const e3=document.getElementById("phoneId");
-            const e4=document.getElementById("passId");
-            
-            e3.classList.add("visible");
-            e4.classList.add("visible");
+            s=0;
             console.log("Wrong Credentials admin !");
-
-            var e5 = document.getElementById("labelId");
-            e5.innerHTML = "hi"
-
+            const e = document.getElementById('labelId').innerHTML = 'Wrong Crendentials !'; 
+    }
+    const e1=document.getElementById("phoneId");
+    const e2=document.getElementById("passId");
+    if(s===0){
+        e1.style.border='2px solid red';
+        e2.style.border='2px solid red';
+    }
+    else{
+        e1.style.border='2px solid rgba(0, 0, 0, 0)';
+        e2.style.border='2px solid rgba(0, 0, 0, 0)';
     }
   }
   
@@ -65,10 +61,21 @@ function Login() {
                 <div className="left"></div>
                 <div className="right">
                     <h2>ENTER DETAILS</h2>
-                    <input id="phoneId" type="text" className="field" onChange={(e) => setEmail(e.target.value)} placeholder="Your Phone" required maxLength="10"/>
+                        
+                    <input id="phoneId" type="tel" className="field"  onChange={(e) => setPhone(e.target.value)}  placeholder="Your Phone" required maxLength="10"/>
                     <input id="passId" type="password" className="field" onChange={(e) => setPassword(e.target.value)} placeholder="Your Password" required />
-                    <label htmlFor="error" id = "labelId">yo</label>
+                    
+                    {/* <div>
+                        <label className='error-msg'>hi</label>
+                    </div> */}
+                    <div style={{"margin":"20px"}}>
+                        <label  htmlFor="error" id = "labelId"></label>
+                    </div>
+                    
+    
                     <button className="btn" onClick={login}>LOGIN</button>
+                    {/* document.getElementById('hello').innerHTML = 'hi'; */}
+                    
                 </div>
             </div>
         </div>
