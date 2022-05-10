@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../css/login.css'
 import axios from "axios"
 
@@ -6,7 +6,16 @@ import axios from "axios"
 // 8811881177
 // tjNzH
 
-function Login() {
+function Login(props) {
+
+    
+//   useEffect(() => {
+//     props.f(true);
+//   }, []);
+
+  
+//   console.log(props.checkLogin);
+    // props.checkLogin = true;
 
   let s=0;
   const [phone, setPhone] = useState("");
@@ -27,6 +36,9 @@ function Login() {
          });
         console.log(res);
         if (res.data.type === "admin"){
+            // useEffect(() => {
+                props.f(true);
+            //   }, []);
             console.log("admin is here !");
             s=1;
             const e = document.getElementById('labelId').innerHTML = 'Correct Crendentials !';
@@ -37,6 +49,7 @@ function Login() {
         }
     }
     catch(error){
+            props.f(false);
             s=0;
             console.log("Wrong Credentials admin !");
             const e = document.getElementById('labelId').innerHTML = 'Wrong Crendentials !'; 
