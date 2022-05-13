@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import '../css/login.css'
 import axios from "axios"
+import { createContext, useContext} from 'react';
+import UserContext from '../contexts/UserContext';
+
+
 
 
 // 8811881177
@@ -8,7 +12,7 @@ import axios from "axios"
 
 function Login(props) {
 
-    
+    let {token,setToken} = useContext(UserContext);
 //   useEffect(() => {
 //     props.f(true);
 //   }, []);
@@ -18,8 +22,10 @@ function Login(props) {
     // props.checkLogin = true;
 
   let s=0;
+  
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  
   const login = async()=>{
     try{
         let res=await axios({
@@ -35,9 +41,15 @@ function Login(props) {
            }
          });
         console.log(res);
+        //console.log(res.data.auth_token);
+        const x=res.data.auth_token;
+        console.log(typeof(res.data.auth_token));
+        //props.setToken(x.toString());
         if (res.data.type === "admin"){
             // useEffect(() => {
                 props.f(true);
+                setToken(x);
+                //props.s(x);
             //   }, []);
             console.log("admin is here !");
             s=1;
@@ -50,6 +62,7 @@ function Login(props) {
     }
     catch(error){
             props.f(false);
+            
             s=0;
             console.log("Wrong Credentials admin !");
             const e = document.getElementById('labelId').innerHTML = 'Wrong Crendentials !'; 
@@ -88,6 +101,8 @@ function Login(props) {
     
                     <button className="btn" onClick={login}>LOGIN</button>
                     {/* document.getElementById('hello').innerHTML = 'hi'; */}
+
+
                     
                 </div>
             </div>

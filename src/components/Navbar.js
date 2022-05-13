@@ -1,5 +1,8 @@
 import React from 'react'
 import '../css/navbar.css'
+import Register from './Register'
+import { BrowserRouter as Router, Switch, Route, Routes } from 'react-router-dom';
+
 
 function Navbar() {
   return (
@@ -15,7 +18,9 @@ function Navbar() {
                 <li><a href="#">Assignment Management</a></li>
                 <li><a href="#">Reports</a></li>
             </ul>
+            
             <a href="#" className="reg">REGISTRATION</a>
+
         </nav>
 
     </div>
